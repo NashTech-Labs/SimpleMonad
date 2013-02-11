@@ -2,7 +2,7 @@ package com.knoldus.func
 
 case class Cage[+A](creature:A) {
    def map[B](f:A=>B):Cage[B]= Cage(f(creature))
-   def flatmap[B](f:A=>Cage[B]):Cage[B]=Cage(f(creature).creature)
+   def flatMap[B](f:A=>Cage[B]):Cage[B]=f(creature)
 }
 
 case class Parrot(name: String) 
@@ -27,6 +27,8 @@ object Main1 extends App{
   val cageOfRicky = cageOfPatient map patientReplacedByRabbit
   
   val cagePatty = cageOfRicky map rabbitReplacedByParrot
+  
+  val cagePatty2 = cageOfRicky flatMap rabbitReplacedByParrot
   
   def parrotBecomesIll(parrot:Parrot):Patient= Patient(patti)
   def patientReplacedByRabbit(patient:Patient):Rabbit = ricky
